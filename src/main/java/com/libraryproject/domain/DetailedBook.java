@@ -7,10 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Movie {
+public class DetailedBook {
     private Long id;
     private String title;
-    private String director;
+    private String author;
     private int releaseYear;
     private int numberOfAvailableCopies;
+    private String synopsis;
 }

@@ -3,8 +3,8 @@ package com.libraryproject.view;
 import com.libraryproject.domain.Book;
 import com.libraryproject.layout.MainLayout;
 import com.libraryproject.service.BookService;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
@@ -19,7 +19,14 @@ public class BooksView extends VerticalLayout {
     private TextField filter = new TextField();
 
     public BooksView(){
-        bookGrid.setColumns("title", "author", "releaseYear", "numberOfAvailableCopies");
+        bookGrid.setColumns("id","title", "author", "releaseYear", "numberOfAvailableCopies");
+        bookGrid.addComponentColumn(book -> {
+                Button button = new Button("Show details");
+                button.addClickListener(click ->
+                        button.getUI().ifPresent(ui ->
+                                ui.navigate(DetailedBookView.class, book.getId())));
+                return button;
+                });
         filter.setPlaceholder("Search by title");
         filter.setClearButtonVisible(true);
         filter.setValueChangeMode(ValueChangeMode.EAGER);

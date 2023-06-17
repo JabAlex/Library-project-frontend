@@ -6,7 +6,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Book {
-    private Long bookId;
+    private Long id;
     private String title;
     private String author;
     private int releaseYear;

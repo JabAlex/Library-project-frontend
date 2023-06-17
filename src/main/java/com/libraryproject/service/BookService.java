@@ -1,6 +1,7 @@
 package com.libraryproject.service;
 
 import com.libraryproject.domain.Book;
+import com.libraryproject.domain.DetailedBook;
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +21,7 @@ public class BookService {
     private static BookService bookService;
 
     private BookService(){
-        this.books = getBookData();
+        this.books = getAllBooks();
     }
 
     public static BookService getInstance() {
@@ -35,6 +36,18 @@ public class BookService {
                 .filter(book -> book.getTitle().toLowerCase().contains(title))
                 .collect(Collectors.toSet());
     }
+    public DetailedBook getDetailedBook(Long bookId){
+        RestTemplate restTemplate = new RestTemplate();
+        URI url = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/v1/library/books/" + bookId).build().toUri();
+        try {
+            DetailedBook response = restTemplate.getForObject(url, DetailedBook.class);
+            return Optional.ofNullable(response)
+                    .orElse(new DetailedBook());
+        } catch (RestClientException e) {
+            LOGGER.error(e.getMessage(), e);
+            return new DetailedBook();
+        }
+    }
 
     public Set<Book> getTopBooks(){
         URI url = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/v1/library/books/top-month").build().toUri();
@@ -45,7 +58,7 @@ public class BookService {
         this.books.add(book);
     }
 
-    private Set<Book> getBookData(){
+    private Set<Book> getAllBooks(){
         URI url = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/v1/library/books").build().toUri();
         return getDataFromBackend(url);
     }
