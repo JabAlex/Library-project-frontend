@@ -38,7 +38,7 @@ public class BookService {
 
     public Set<Book> getTopBooks(){
         URI url = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/v1/library/books/top-month").build().toUri();
-        return getBooksFromBackend(url);
+        return getDataFromBackend(url);
     }
 
     public void addBook(Book book) {
@@ -47,10 +47,10 @@ public class BookService {
 
     private Set<Book> getBookData(){
         URI url = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/v1/library/books").build().toUri();
-        return getBooksFromBackend(url);
+        return getDataFromBackend(url);
     }
 
-    private Set<Book> getBooksFromBackend(URI url) {
+    private Set<Book> getDataFromBackend(URI url) {
         RestTemplate restTemplate = new RestTemplate();
         try{
             Book[] response = restTemplate.getForObject(url, Book[].class);

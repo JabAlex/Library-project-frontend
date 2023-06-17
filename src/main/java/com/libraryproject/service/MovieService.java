@@ -38,15 +38,15 @@ public class MovieService {
 
     public Set<Movie> getTopMovies(){
         URI url = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/v1/library/movies/top-month").build().toUri();
-        return getMoviesFromBackend(url);
+        return getDataFromBackend(url);
     }
 
     private Set<Movie> getMovieData(){
         URI url = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/v1/library/movies").build().toUri();
-        return getMoviesFromBackend(url);
+        return getDataFromBackend(url);
     }
 
-    private Set<Movie> getMoviesFromBackend(URI url) {
+    private Set<Movie> getDataFromBackend(URI url) {
         RestTemplate restTemplate = new RestTemplate();
         try{
             Movie[] response = restTemplate.getForObject(url, Movie[].class);
