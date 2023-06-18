@@ -1,5 +1,6 @@
 package com.libraryproject.service;
 
+import com.libraryproject.domain.DetailedMovie;
 import com.libraryproject.domain.Movie;
 import lombok.Getter;
 import org.slf4j.Logger;
@@ -34,6 +35,18 @@ public class MovieService {
         return movies.stream()
                 .filter(movie -> movie.getTitle().toLowerCase().contains(title))
                 .collect(Collectors.toSet());
+    }
+    public DetailedMovie getDetailedMovie(Long movieId){
+        RestTemplate restTemplate = new RestTemplate();
+        URI url = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/v1/library/movies/" + movieId).build().toUri();
+        try {
+            DetailedMovie response = restTemplate.getForObject(url, DetailedMovie.class);
+            return Optional.ofNullable(response)
+                    .orElse(new DetailedMovie());
+        } catch (RestClientException e) {
+            LOGGER.error(e.getMessage(), e);
+            return new DetailedMovie();
+        }
     }
 
     public Set<Movie> getTopMovies(){
