@@ -19,7 +19,7 @@ public class BooksView extends VerticalLayout {
     private TextField filter = new TextField();
 
     public BooksView(){
-        bookGrid.setColumns("id","title", "author", "releaseYear", "numberOfAvailableCopies");
+        bookGrid.setColumns("id","title", "author", "publicationYear", "numberOfAvailableCopies");
         bookGrid.addComponentColumn(book -> {
                 Button button = new Button("Show details");
                 button.addClickListener(click ->

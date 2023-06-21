@@ -36,7 +36,7 @@ public class MainView extends VerticalLayout {
 
         topBooksGrid.addColumn(Book::getTitle).setHeader("Title").setSortable(false);
         topBooksGrid.addColumn(Book::getAuthor).setHeader("Author").setSortable(false);
-        topBooksGrid.addColumn(Book::getReleaseYear).setHeader("Release Year").setSortable(false);
+        topBooksGrid.addColumn(Book::getPublicationYear).setHeader("Release Year").setSortable(false);
 
         topMoviesGrid.addColumn(Movie::getTitle).setHeader("Title").setSortable(false);
         topMoviesGrid.addColumn(Movie::getDirector).setHeader("Director").setSortable(false);
